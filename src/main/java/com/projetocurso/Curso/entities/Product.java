@@ -19,7 +19,11 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    private Set<Category> categories = new HashSet<>();//o mesmo produto não pode ter a mesma categoria mais de 1 vez por isso usamos o Set
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id")) //muitos para muitos
+    private Set<Category> categories = new HashSet<>();     //o mesmo produto não pode ter a mesma categoria mais de 1 vez por isso usamos o Set
 
     public Product(){
 
