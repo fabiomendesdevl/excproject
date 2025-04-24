@@ -2,10 +2,12 @@ package com.projetocurso.Curso.config;
 
 import com.projetocurso.Curso.entities.Category;
 import com.projetocurso.Curso.entities.Order;
+import com.projetocurso.Curso.entities.Product;
 import com.projetocurso.Curso.entities.User;
 import com.projetocurso.Curso.entities.enums.OrderStatus;
 import com.projetocurso.Curso.repositories.CategoryRepository;
 import com.projetocurso.Curso.repositories.OrderRepository;
+import com.projetocurso.Curso.repositories.ProductRepository;
 import com.projetocurso.Curso.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +27,8 @@ public class TestConfig implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -39,8 +43,13 @@ public class TestConfig implements CommandLineRunner {
         Category c2 = new Category(null, "Books");
         Category c3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "TV", "Top", 500.00, "");
+        Product p2 = new Product(null, "Celular", "rox", 600.00, "");
+        Product p3 = new Product(null, "Notebook", "essentials", 700.00, "");
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c1,c2,c3));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3));
     }
 }
