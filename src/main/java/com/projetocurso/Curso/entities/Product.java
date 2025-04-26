@@ -1,6 +1,8 @@
 package com.projetocurso.Curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.aspectj.weaver.ast.Or;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,6 +26,9 @@ public class Product implements Serializable {
     joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id")) //muitos para muitos
     private Set<Category> categories = new HashSet<>();     //o mesmo produto não pode ter a mesma categoria mais de 1 vez por isso usamos o Set
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product(){
 
@@ -79,6 +84,15 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrderItem x : items){
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override
